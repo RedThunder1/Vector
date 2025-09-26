@@ -1,5 +1,5 @@
 <div align="center"><img src="public/VectorLogo.png" alt="Logo" style="vertical-align: bottom; width: 80px"/></div>
-<div align="center" style="font-size: 40px; font-weight: bold">Vector</div>
+<h1 align="center">Vector</h1>
 
 <hr>
 
