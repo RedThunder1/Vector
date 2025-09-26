@@ -1,8 +1,6 @@
 <div align="center"><img src="public/VectorLogo.png" alt="Logo" style="vertical-align: bottom; width: 80px"/></div>
 <h1 align="center">Vector</h1>
 
-<hr>
-
 <h1>What is Vector</h1>
 
 Vector Is a webapp I am developing as a course project. Vector is a Todo list and note-taking webapp. Vector will allow the creation of todo lists where tasks can be seperated into sections and given tags along with other features. 

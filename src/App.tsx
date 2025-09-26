@@ -3,6 +3,7 @@ import './App.css';
 import {Route, Routes} from "react-router-dom";
 import Navbar from "./Components/Navbar/Navbar";
 import Home from "./Components/Home/Home"
+import Files from "./Components/Files/Files";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <main>
             <Routes>
                 <Route index element={<Home/>} />
+                <Route path="/Files" element={<Files/>} />
             </Routes>
         </main>
     </>
