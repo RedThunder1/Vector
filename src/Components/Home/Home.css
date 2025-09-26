@@ -53,6 +53,7 @@
 
 }
 
+/* To format for mobile. */
 @media screen and (max-width: 1300px) {
     .home {
         display: flex;
