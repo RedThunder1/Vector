@@ -1,5 +1,5 @@
-<div style="display: flex; justify-content: center"><img src="public/VectorLogo.png" alt="Logo" style="vertical-align: bottom; width: 80px"/></div>
-<div  style="font-size: 40px; font-weight: bold; text-align: center">Vector</div>
+<div align="center"><img src="public/VectorLogo.png" alt="Logo" style="vertical-align: bottom; width: 80px"/></div>
+<div align="center" style="font-size: 40px; font-weight: bold">Vector</div>
 
 <hr>
 
