@@ -9,8 +9,7 @@ function Navbar() {
         <div className="navbar">
             <Link className="Link" to="/"><img src={Logo} alt="Vector Logo"></img></Link>
             <Link className="Link" to="/"><div className="home_tab navbar_tab">Home</div></Link>
-            <Link className="Link" to="/Files"><div className="lists_tab navbar_tab">Todo Lists</div></Link>
-            <Link className="Link" to="/Files"><div className="notes_tab navbar_tab">Notes</div></Link>
+            <Link className="Link" to="/Files"><div className="lists_tab navbar_tab">Files</div></Link>
             <div className="utility_tabs">
                 <div className="account_tab">Account</div>
                 <div className="settings_tab">Settings</div>
