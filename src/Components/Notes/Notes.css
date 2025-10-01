@@ -4,7 +4,7 @@
 
 .toolbar > input {
     text-align: center;
-    font-size: 40px;
+    font-size: 25px;
     margin: 0;
     padding: 10px 10px 10px 0;
     background-color: transparent;
@@ -47,4 +47,15 @@
     border: none;
     font-size: 20px;
     outline: none;
+}
+
+.save_functions > button {
+    background-color: #2b2626;
+    border: none;
+    outline: none;
+    transition: .2s all ease-in-out;
+}
+.save_functions > button:hover {
+    background-color: #2b2626;
+    transform: scale(1.05);
 }

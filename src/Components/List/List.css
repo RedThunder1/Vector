@@ -16,7 +16,7 @@
 
 .list_toolbar > input {
     text-align: center;
-    font-size: 40px;
+    font-size: 25px;
     margin: 0;
     padding: 10px 10px 10px 0;
     background-color: transparent;
@@ -72,4 +72,32 @@
     width: 100%;
     margin-top: 15px;
     background-color: #06080c;
+}
+
+.list_item_title {
+    height: 50px;
+    padding: 3px;
+}
+.list_item_desc {
+    height: 100px;
+    padding: 3px;
+}
+.list_item_tags {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    overflow: scroll;
+    height: 20px;
+    width: 400px;
+}
+
+.list_item_tag {
+    background-color: red;
+    width: fit-content;
+    height: 5px;
+    border-radius: 10px;
+    padding: 5px 10px 10px 5px;
+    line-height: 6px;
 }
