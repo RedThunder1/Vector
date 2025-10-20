@@ -72,6 +72,11 @@
     width: 100%;
     margin-top: 15px;
     background-color: #06080c;
+    transition: all 200ms ease-in-out;
+}
+
+.list_section_item:hover {
+    background-color: #1c2539;
 }
 
 .list_item_title {
