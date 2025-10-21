@@ -16,7 +16,10 @@ function List() {
                     <div className='list_section_header'>Section Header</div>
                     <div className='list_section_items'>
                         <div className='list_section_item'>
-                            <div className='list_item_title'>TITLE</div>
+                            <div className='list_item_title'>
+                                TITLE
+                                <div className='remove_list_item'>X</div>
+                            </div>
                             <div className='list_item_desc'>This is an interesting description</div>
                             <div className='list_item_tags'>
                                 <div className='list_item_tag'>IMPORTANT</div>

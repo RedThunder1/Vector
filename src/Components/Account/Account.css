@@ -1,0 +1,42 @@
+.account {
+    min-height: 90vh;
+    width: 100vw;
+    display: flex;
+}
+
+.account_panel {
+    background: #0a0d13;
+    position: relative;
+    margin: 10px auto 10px auto;
+    width: 600px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.account_panel input {
+    background: #0e131c;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    height: 40px;
+    width: 300px;
+    transition: ease-in-out 0.2s;
+}
+
+.account_panel form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.account_panel input[type=submit]:hover {
+    transform: scale(1.05);
+}
+
+.identifier_warning {
+    display: none;
+}

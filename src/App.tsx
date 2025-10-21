@@ -6,6 +6,7 @@ import Home from "./Components/Home/Home"
 import Files from "./Components/Files/Files";
 import Notes from "./Components/Notes/Notes";
 import List from "./Components/List/List";
+import Account from "./Components/Account/Account";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
                 <Route path="/files" element={<Files/>} />
                 <Route path="/notes" element={<Notes/>} />
                 <Route path='/list' element={<List/>} />
+                <Route path="/account" element={<Account/>}/>
             </Routes>
         </main>
     </>
