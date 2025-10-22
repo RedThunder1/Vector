@@ -13,8 +13,7 @@ function Account() {
             const response = await axios.post('http://localhost:8000/api/login/', {
                 identifier: identifier,
                 password: password,
-                withCredentials: true
-            })
+            }, {withCredentials: true})
             console.log(response)
         } catch (error) {
             //Show error on screen
