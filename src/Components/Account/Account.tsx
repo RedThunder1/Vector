@@ -14,11 +14,12 @@ function Account() {
                 identifier: identifier,
                 password: password,
             })
+            console.log(response)
         } catch (error) {
             //Show error on screen
+
             console.error('Failed to submit login data', error)
         }
-
     }
 
     return (
