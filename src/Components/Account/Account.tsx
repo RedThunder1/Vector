@@ -18,7 +18,7 @@ function Account() {
             }, {withCredentials: true, headers: {"X-CSRFToken": cookies.get("csrftoken")}})
                 .then((response) => {
                     console.log(response.data.message)
-                    if(response.data.msg === "login successful") {
+                    if(response.data.message === "login successful") {
                         //Look for posted user data
                         console.log("Successfully logged in")
                     } else {
