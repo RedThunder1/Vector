@@ -10,7 +10,7 @@ function Account() {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
-            const response = await axios.post('http://localhost:8000/api/login', {
+            const response = await axios.post('http://localhost:8000/api/login/', {
                 identifier: identifier,
                 password: password,
                 withCredentials: true
