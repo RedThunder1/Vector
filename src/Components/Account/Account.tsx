@@ -2,18 +2,20 @@ import react, {useState} from "react";
 import "./Account.css"
 import axios from "axios";
 import React from "react";
+import Cookies from "universal-cookie";
 
 function Account() {
     const [identifier, setIdentifier] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
+            const cookies = new Cookies()
+
             const response = await axios.post('/api/login/', {
                 identifier: identifier,
                 password: password,
-            }, {withCredentials: true})
+            }, {withCredentials: true, headers: {"X-CSRFToken": cookies.get("csrftoken")}})
             console.log(response)
         } catch (error) {
             //Show error on screen
