@@ -17,17 +17,22 @@ function Account() {
                 password: password,
             }, {withCredentials: true, headers: {"X-CSRFToken": cookies.get("csrftoken")}})
                 .then((response) => {
-                    if(response.data.msg === "login successful")
-                    {
+                    console.log(response.data.message)
+                    if(response.data.msg === "login successful") {
                         //Look for posted user data
                         console.log("Successfully logged in")
+                    } else {
+                        let error_header = document.getElementById("error_header") as HTMLDivElement
+                        error_header.innerText = "Login unsuccessful. The username or password was incorrect."
+                        error_header.style.display = "block"
                     }
                 })
 
         } catch (error) {
             //Show error on screen
-            document.getElementById("error_header")!!.style.display = "block"
-            console.error('Failed to submit login data', error)
+            let error_header = document.getElementById("error_header") as HTMLDivElement
+            error_header.innerText = "There was an error trying to log in. Try again."
+            error_header.style.display = "block"
         }
     }
 
