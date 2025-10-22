@@ -7,6 +7,7 @@ import Cookies from "universal-cookie";
 function Account() {
     const [identifier, setIdentifier] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
@@ -19,7 +20,7 @@ function Account() {
             console.log(response)
         } catch (error) {
             //Show error on screen
-
+            document.getElementById("error_header")!!.style.display = "block"
             console.error('Failed to submit login data', error)
         }
     }
@@ -30,9 +31,12 @@ function Account() {
                 <form className="account_form" id="account_form" method="POST" onSubmit={(e) => {handleSubmit(e)}}>
 
                     <h2>Account Login</h2>
+                    <div className="error_header" id="error_header">
+                        There was an error while trying to login! Please try again!
+                    </div>
                     <input id="identifier"
                            value={identifier}
-                           onChange={(e) => setIdentifier(e.target.value)}
+                           onChange={(e) => setIdentifier(e.target.value) }
                            name="identifier"
                            className="account_identifier"
                            placeholder="Username or Email" required />
