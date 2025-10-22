@@ -1,7 +1,6 @@
 import react, {useState} from "react";
 import "./Account.css"
 import axios from "axios";
-import React from "react";
 import Cookies from "universal-cookie";
 
 function Account() {
