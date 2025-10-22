@@ -17,7 +17,14 @@ function Account() {
                 identifier: identifier,
                 password: password,
             }, {withCredentials: true, headers: {"X-CSRFToken": cookies.get("csrftoken")}})
-            console.log(response)
+                .then((response) => {
+                    if(response.data.msg === "login successful")
+                    {
+                        //Look for posted user data
+                        console.log("Successfully logged in")
+                    }
+                })
+
         } catch (error) {
             //Show error on screen
             document.getElementById("error_header")!!.style.display = "block"
