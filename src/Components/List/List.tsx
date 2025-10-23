@@ -59,7 +59,7 @@ let uuid: string;
 
 function List() {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-        localStorage.setItem(uuid.toString(), JSON.stringify(todolist));
+        localStorage.setItem(uuid, JSON.stringify(todolist));
         e.preventDefault();
         e.returnValue = '';
     }
@@ -91,7 +91,7 @@ function List() {
             const cookies = new Cookies()
             const response = await axios.post('/api/lists/save/', {
                 ListUUID: todolist.uuid,
-                UserUUID: Array.from(user)[0],
+                UserUUID: user.substring(2,37),
                 Name: todolist.name,
                 ListContents: JSON.stringify(todolist)
             }, {withCredentials: true, headers: {"X-CSRFToken": cookies.get("csrftoken")}})
