@@ -9,22 +9,31 @@
     position: relative;
     margin: 10px auto 10px auto;
     width: 600px;
+    height: fit-content;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    padding-bottom: 40px;
     transition: all ease-in-out 0.3s;
 }
 
 .account_panel input {
     background: #0e131c;
+    position: relative;
     outline: none;
     border: none;
     border-radius: 10px;
-    height: 60px;
+    height: 50px;
     width: 400px;
+    padding-left: 10px;
+    box-sizing: border-box;
     transition: ease-in-out 0.2s;
+}
+
+.account_panel input:hover {
+    outline: solid 1px #1358dc;
 }
 
 .account_panel form {
@@ -52,4 +61,26 @@
     font-size: 20px;
     margin: 10px 0 15px 0;
     display: none;
+}
+
+.dev_account {
+    text-align: center;
+    font-size: 18px;
+}
+
+.create_account_button {
+    background: #0e131c;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    height: 60px;
+    width: 400px;
+    transition: ease-in-out 0.2s;
+    text-align: center;
+    line-height: 60px;
+    margin-top: 100px;
+}
+
+.create_account_button:hover {
+    transform: scale(1.05);
 }

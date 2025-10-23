@@ -204,6 +204,7 @@ function openTaskCreationPanel(e: React.MouseEvent<HTMLDivElement>) {
                               <input className="create_name" id="task_name" type="text" placeholder="Task Name"/>
                               <textarea className="task_desc" id="task_desc" placeholder="Task Description"></textarea>
                               <div className="create_button" onClick={() => {createTask(section, (document.getElementById("task_name") as HTMLInputElement).value, (document.getElementById("task_desc") as HTMLInputElement).value )}}>Create Task</div>
+                              <div className="create_button" onClick={(e) => {((e.target as HTMLDivElement).parentElement)?.parentElement!!.remove()}}>Cancel</div>
                             </div>
                           </div>
     );
@@ -258,6 +259,7 @@ function openSectionCreationPanel() {
             <div className="create_panel_items">
                 <input className="create_name" id="section_name" type="text" placeholder="Section Name"/>
                 <div className="create_button" onClick={() => {createListSection((document.getElementById("section_name") as HTMLInputElement).value)}}>Create Task</div>
+                <div className="create_button" onClick={(e) => {((e.target as HTMLDivElement).parentElement)?.parentElement!!.remove()}}>Cancel</div>
             </div>
         </div>
     );

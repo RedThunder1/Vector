@@ -7,6 +7,7 @@ import Files from "./Components/Files/Files";
 import Notes from "./Components/Notes/Notes";
 import List from "./Components/List/List";
 import Account from "./Components/Account/Account";
+import CreateAccount from "./Components/Account/CreateAccount/CreateAccount";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
                 <Route path="/notes" element={<Notes/>} />
                 <Route path='/list' element={<List/>} />
                 <Route path="/account" element={<Account/>}/>
+                <Route path="/account/create" element={<CreateAccount/>}/>
             </Routes>
         </main>
     </>

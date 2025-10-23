@@ -173,9 +173,11 @@
 .list_section_item {
     position: relative;
     min-height: 40px;
-    padding-bottom: 10px;
-    width: 100%;
+    min-width: 400px;
+    max-width: 400px;
+    box-sizing: border-box;
     margin-top: 15px;
+    padding: 0 5px 10px 5px;
     background-color: #06080c;
     transition: all 200ms ease-in-out;
 }
