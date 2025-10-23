@@ -80,15 +80,12 @@ function List() {
     }
 
     async function saveList() {
-        let user = localStorage.getItem('user')
+        let user: Array<string> = Array.from(localStorage.getItem('user'))
         if (user === null) {
             //show error saying you need to log in and ensure list is saved so it's not lost
             console.log('You must be logged in to save!')
             return;
         }
-
-
-
 
         try {
             const cookies = new Cookies()
@@ -102,7 +99,7 @@ function List() {
                     //Show error if failed to save.
                 })
         } catch (error) {
-
+            //Show failed to save error
         }
 
 
