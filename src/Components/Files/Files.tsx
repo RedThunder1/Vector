@@ -22,7 +22,7 @@ function Files() {
                 const container: HTMLDivElement = document.getElementById("files_lists_container")!! as HTMLDivElement
                 for (let item of data) {
                     const html = (
-                        <div className="files_list" onClick={() => { nav('files/', {state: item[0]}) }}>
+                        <div className="files_list" onClick={() => { nav('list', {state: item[0]}) }}>
                             <h2>{item[2]}</h2>
                         </div>
                     );
