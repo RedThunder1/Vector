@@ -55,6 +55,7 @@ function Files() {
 
     useEffect(() => {
         loadAllLists()
+        loadAllNotes()
     }, [])
 
     return (

@@ -37,6 +37,7 @@ function Notes() {
                     let data = response.data[0]
                     uuid = data[0]
                     name = data[2]
+                    (document.getElementById('notepad') as HTMLTextAreaElement).value = data[4]
 
                 })
         } catch (error) {
