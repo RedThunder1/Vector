@@ -16,12 +16,28 @@ function CreateAccount() {
         //Check if login data is still stored to log back in
     })
 
+    const validateEmail = (email: string) => {
+        return String(email)
+            .toLowerCase()
+            .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
+    };
+
+
     const handleCreateAccount = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const error_header = document.getElementById("error_header") as HTMLDivElement
         const password_error = document.getElementById("password_error") as HTMLParagraphElement
 
         error_header.style.display = "none";
+
+        if (!validateEmail(email)) {
+            error_header.innerText = 'Email is invalid!';
+            error_header.style.display = "block";
+            return
+        }
+
 
         if (password !== (document.getElementById("confirm_password") as HTMLInputElement).value) {
             password_error.style.display = "block";
