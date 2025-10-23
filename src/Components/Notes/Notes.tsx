@@ -1,4 +1,4 @@
-import react, {useEffect} from "react";
+import react, {ChangeEvent, useEffect} from "react";
 import "./Notes.css"
 import Cookies from "universal-cookie";
 import axios from "axios";
@@ -37,7 +37,6 @@ function Notes() {
                     let data: any = response.data[0]
                     uuid = data[0]
                     name = data[2]
-                    console.log(response);
                     const notepad = (document.getElementById('notepad') as HTMLTextAreaElement).value = data[4]
                     const note_title = (document.getElementById('note_title') as HTMLInputElement).value = name
 
@@ -69,22 +68,26 @@ function Notes() {
             console.error(error)
         }
     }
-        const location = useLocation();
-        const state = location.state?.note || null;
-        useEffect(() => {
 
-            //See if loading or creating new note
-            //Loading note
-            if (state === 'new') {
-                //creating new note
-                uuid = uuidv4();
-                name = "Note"
-            } else {
-                //fetch list from backend
-                uuid = state
-                loadNote()
-            }
-        }, [])
+    const handleTitleChange = (e: ChangeEvent) => {
+        name = (e.target as HTMLInputElement).value;
+    }
+
+    const location = useLocation();
+    const state = location.state?.note || null;
+    useEffect(() => {
+
+        //See if loading or creating new note
+        //Loading note
+        if (state === 'new') {
+            //creating new note
+            uuid = uuidv4();
+            name = "Note"
+        } else {
+            //fetch list from backend
+            uuid = state
+            loadNote()
+        }}, [])
 
 
     return (
@@ -92,7 +95,7 @@ function Notes() {
             <textarea className="notepad" id="notepad"/>
             <div className='toolbar'>
                 <h2>ToolBar</h2>
-                <input id='note_title' type='text' placeholder='Note Title'/>
+                <input id='note_title' type='text' placeholder='Note Title' onChange={handleTitleChange}/>
                 <div className="tb_text_align">
                     <label>Left<input id="tb_ta_left" name="state-d" type="radio" onClick={() => {align('left')}}/></label>
                     <label>Center<input id="tb_ta_center" name="state-d" type="radio" onClick={() => {align('center')}}/></label>
