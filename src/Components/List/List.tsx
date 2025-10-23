@@ -67,7 +67,7 @@ function List() {
     async function loadList() {
         try {
             const cookies = new Cookies()
-            const response = await axios.post('/api/list/load', {
+            const response = await axios.post('/api/list/load/', {
                 ListUUID: uuid,
 
             }, {withCredentials: true, headers: {"X-CSRFToken": cookies.get("csrftoken")}})
@@ -80,22 +80,21 @@ function List() {
     }
 
     async function saveList() {
-        /*
         let user = localStorage.getItem('user')
         if (user === null) {
             //show error saying you need to log in and ensure list is saved so it's not lost
             console.log('You must be logged in to save!')
             return;
         }
-         */
+
 
 
 
         try {
             const cookies = new Cookies()
-            const response = await axios.post('/api/list/save', {
+            const response = await axios.post('/api/list/save/', {
                 ListUUID: uuid,
-                UserUUID: uuid,
+                UserUUID: user[0],
                 Name: todolist.name,
                 ListContents: JSON.stringify(todolist)
             }, {withCredentials: true, headers: {"X-CSRFToken": cookies.get("csrftoken")}})

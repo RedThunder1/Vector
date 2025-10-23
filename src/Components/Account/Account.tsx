@@ -18,7 +18,6 @@ function Account() {
         e.preventDefault()
         try {
             const cookies = new Cookies()
-
             const response = await axios.post('/api/login/', {
                 identifier: identifier,
                 password: password,
@@ -26,7 +25,7 @@ function Account() {
                 .then((response) => {
                     console.log(response.data.message)
                     if(response.data.message === "login successful") {
-                        const user: Array<string> = response.data.users
+                        const user: Array<string> = response.data.user
                         localStorage.setItem("user", JSON.stringify(user));
                     } else {
                         error_header.innerText = "Login unsuccessful. The username or password was incorrect."
