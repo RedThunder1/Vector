@@ -65,6 +65,7 @@ function List() {
     }
 
     async function loadList() {
+        console.log('attempting to load list');
         try {
             const cookies = new Cookies()
             const response = await axios.post('/api/lists/load/', {
@@ -87,7 +88,7 @@ function List() {
                     })
                 })
         } catch (error) {
-
+            console.error(error)
         }
     }
 
