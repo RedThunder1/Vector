@@ -67,7 +67,7 @@ function List() {
     async function loadList() {
         try {
             const cookies = new Cookies()
-            const response = await axios.post('/api/list/load/', {
+            const response = await axios.post('/api/lists/load/', {
                 ListUUID: uuid,
 
             }, {withCredentials: true, headers: {"X-CSRFToken": cookies.get("csrftoken")}})
@@ -92,7 +92,7 @@ function List() {
 
         try {
             const cookies = new Cookies()
-            const response = await axios.post('/api/list/save/', {
+            const response = await axios.post('/api/lists/save/', {
                 ListUUID: uuid,
                 UserUUID: user[0],
                 Name: todolist.name,
