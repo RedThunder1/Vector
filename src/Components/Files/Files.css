@@ -10,7 +10,7 @@
     height: 400px;
 }
 
-.files_lists_container {
+.files_container {
     display: flex;
     flex-direction: row;
     height: 210px;
@@ -24,17 +24,16 @@
     gap: 20px;
 }
 
-.files_list {
+.files_item {
     min-width: 200px;
     max-width: 200px;
     height: 200px;
     background: #0e131c;
 }
 
-.files_list > h2 {
+.files_item > h2 {
     margin: 5px 0 0 5px;
 }
-
 
 .files_notes {
     position: relative;

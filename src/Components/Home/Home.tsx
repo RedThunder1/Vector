@@ -19,7 +19,7 @@ function Home() {
                     <div className="quick_note">
                         <h3>Create a Note</h3>
                         <p>Create a new Note to write down<br/>and save anything you want.</p>
-                        <Link to='notes'><button className="quick_button" type="button">New Note</button></Link>
+                        <Link to={'notes'} state={{note: 'new'}}><button className="quick_button" type="button">New Note</button></Link>
                     </div>
                 </div>
             </div>

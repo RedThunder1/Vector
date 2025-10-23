@@ -144,11 +144,7 @@ function List() {
             //fetch list from backend
             uuid = state
             loadList()
-
         }
-
-
-
     }, [])
 
     return (

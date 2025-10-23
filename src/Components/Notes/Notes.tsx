@@ -1,5 +1,9 @@
-import react from "react";
+import react, {useEffect} from "react";
 import "./Notes.css"
+import Cookies from "universal-cookie";
+import axios from "axios";
+import {useLocation} from "react-router-dom";
+import {v4 as uuidv4} from "uuid";
 
 
 function align(position: string) {
@@ -18,17 +22,67 @@ function download_doc() {
     download.click()
 }
 
-function save_doc(type: string) {
-    //Ensure note is saved with a name
-    if ((document.getElementById('note_title') as HTMLInputElement).value === '') { type = 'save as'}
-    switch (type) {
-        case 'save':
-            //Save document with name
-        case 'save_as':
-           //Save document with new name
-    }
-}
+let name: string;
+let uuid: string;
+
 function Notes() {
+
+    async function loadNote() {
+        try {
+            const cookies = new Cookies()
+            const response = await axios.post('/api/notes/load/', {
+                NoteUUID: uuid,
+            }, {withCredentials: true, headers: {"X-CSRFToken": cookies.get("csrftoken")}})
+                .then((response) => {
+                    let data = response.data[0]
+                    uuid = data[0]
+                    name = data[2]
+
+                })
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    async function saveNote() {
+        let user: string | null = localStorage.getItem('user')
+        if (user === null) {
+            console.log('You must be logged in to save!')
+            return;
+        }
+
+        try {
+            const cookies = new Cookies()
+            const response = await axios.post('/api/notes/save/', {
+                NoteUUID: uuid,
+                UserUUID: localStorage.getItem('user')!!.substring(2,37),
+                Name: name,
+                NoteSettings: "",
+                NoteContents: (document.getElementById("notepad") as HTMLTextAreaElement).value,
+
+            }, {withCredentials: true, headers: {"X-CSRFToken": cookies.get("csrftoken")}})
+
+        } catch (error) {
+            console.error(error)
+        }
+    }
+        const location = useLocation();
+        const state = location.state?.note || null;
+        useEffect(() => {
+
+            //See if loading or creating new note
+            //Loading note
+            if (state === 'new') {
+                //creating new note
+                uuid = uuidv4();
+            } else {
+                //fetch list from backend
+                uuid = state
+                loadNote()
+            }
+        }, [])
+
+
     return (
         <div className="notes">
             <textarea className="notepad" id="notepad"/>
@@ -44,8 +98,7 @@ function Notes() {
                     <label>Font Size<input className='tb_font_size' id='tb_font_size' type="number" defaultValue='12' min="0" step="1" max='30' onChange={changeFontSize}/></label>
                 </div>
                 <div className='save_functions'>
-                    <button onClick={() => {save_doc('save')}}>Save</button>
-                    <button onClick={() => {save_doc('save as')}}>Save As</button>
+                    <button onClick={() => {saveNote()}}>Save</button>
                     <button onClick={download_doc}>Download</button>
                 </div>
             </div>

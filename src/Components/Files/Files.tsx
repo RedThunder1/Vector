@@ -10,6 +10,7 @@ function Files() {
 
     let user: string | null = localStorage.getItem('user')
     let nav = useNavigate();
+
     async function loadAllLists() {
         if (user === null) return
         const cookies = new Cookies()
@@ -22,16 +23,34 @@ function Files() {
                 const container: HTMLDivElement = document.getElementById("files_lists_container")!! as HTMLDivElement
                 for (let item of data) {
                     const html = (
-                        <div className="files_list" onClick={() => { nav('/list', {state: {list: item[0]}}) }}>
+                        <div className="files_item" onClick={() => { nav('/list', {state: {list: item[0]}}) }}>
                             <h2>{item[2]}</h2>
                         </div>
                     );
                     render(createPortal(html, container));
                 }
             })
+    }
 
-
-
+    async function loadAllNotes() {
+        if (user === null) return
+        const cookies = new Cookies()
+        const response = await axios.post('/api/notes/loadall/',{
+            UserUUID: user.substring(2,37),
+        }, {withCredentials: true, headers: {"X-CSRFToken": cookies.get("csrftoken")}})
+            .then(response => {
+                let data = response.data
+                if (data.length === 0) {return}
+                const container: HTMLDivElement = document.getElementById("files_notes_container")!! as HTMLDivElement
+                for (let item of data) {
+                    const html = (
+                        <div className="files_item" onClick={() => { nav('/notes', {state: {note: item[0]}}) }}>
+                            <h2>{item[2]}</h2>
+                        </div>
+                    );
+                    render(createPortal(html, container));
+                }
+            })
     }
 
     useEffect(() => {
@@ -44,7 +63,7 @@ function Files() {
                 <p>Todo Lists</p>
                 <div className="l_arrow">&lt;</div>
                 <div className="r_arrow">&gt;</div>
-                <div className="files_lists_container" id="files_lists_container">
+                <div className="files_container" id="files_lists_container">
                 </div>
 
             </div>
@@ -52,6 +71,8 @@ function Files() {
                 <p>Notes</p>
                 <div className="l_arrow">&lt;</div>
                 <div className="r_arrow">&gt;</div>
+                <div className="files_container" id="files_notes_container">
+                </div>
             </div>
         </div>
     )
