@@ -1,5 +1,4 @@
 import './CreateAccount.css'
-import {Link} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Cookies from "universal-cookie";
 import axios from "axios";
@@ -15,7 +14,7 @@ function CreateAccount() {
         //Check if login data is still stored to log back in
     })
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleCreateAccount = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const error_header = document.getElementById("error_header") as HTMLDivElement
         const password_error = document.getElementById("password_error") as HTMLParagraphElement
@@ -58,7 +57,7 @@ function CreateAccount() {
     return (
         <div className='create_account'>
             <div className="account_panel">
-                <form className="account_form" id="account_form" method="POST" onSubmit={(e) => {handleSubmit(e)}}>
+                <form className="account_form" id="account_form" method="POST" onSubmit={(e) => handleCreateAccount(e)}>
 
                     <h2>Create Account</h2>
                     <div className="error_header" id="error_header">
@@ -69,7 +68,7 @@ function CreateAccount() {
                            onChange={(e) => setUsername(e.target.value) }
                            name="identifier"
                            className="account_identifier"
-                           placeholder="Username or Email" required />
+                           placeholder="Username" required />
 
                     <input id="email"
                         value={email}
