@@ -77,10 +77,15 @@ function List() {
                         loaded_list.uuid,
                         loaded_list.name,
                         loaded_list.sections.map((s: any) =>
-                            new Section(s.name, s.tasks.map((t: any) =>
-                                    new Task(t.name, t.description, t.tags.map((tg: any) => new Tag(tg.name, tg.color)))))),
-                        loaded_list.tags.map((tg: any) => new Tag(tg.name, tg.color))
+                            new Section(
+                                s.name,
+                                [...s.tasks.map((t: any) => new Task(
+                                        t.name,
+                                        t.description,
+                                        [...t.tags.map((tg: any) => new Tag(tg.name, tg.color))]))])),
+                        [...loaded_list.tags.map((tg: any) => new Tag(tg.name, tg.color))]
                     );
+
                     console.log(loaded_list);
                     todolist = new TodoList(loaded_list.uuid, loaded_list.name, loaded_list.sections, loaded_list.tags);
                     //render all sections and tasks
