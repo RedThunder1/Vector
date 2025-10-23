@@ -164,9 +164,10 @@ function deleteListItem(e: React.MouseEvent<HTMLDivElement>) {
     const parent = task.parentElement!!;
     const task_index = Array.from(parent.children).indexOf(task);
     const parent_index = Array.from(parent.parentElement!!.children).indexOf(parent);
+    console.log(todolist.sections[parent_index].tasks, parent_index, task_index);
     todolist.sections[parent_index].tasks.splice(task_index, 1);
+    console.log(todolist.sections[parent_index].tasks);
     task.remove();
-    console.log(todolist.sections);
 }
 
 function createTask(section: HTMLDivElement, name: string, description: string) {
@@ -226,8 +227,6 @@ function deleteListSection(section: HTMLDivElement, e: React.MouseEvent<HTMLDivE
     todolist.sections.splice(index, 1);
     section.remove();
     (e.target as HTMLDivElement).parentElement!!.remove();
-
-    console.log(todolist.sections);
 }
 
 
