@@ -31,7 +31,7 @@ function CreateAccount() {
 
         try {
             const cookies = new Cookies()
-            const response = await axios.post('/api/login/', {
+            const response = await axios.post('/api/createaccount/', {
                 UUID: uuidv4(),
                 Username: username,
                 Email: email,
