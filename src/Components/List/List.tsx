@@ -73,7 +73,7 @@ function List() {
             }, {withCredentials: true, headers: {"X-CSRFToken": cookies.get("csrftoken")}})
                 .then((response) => {
                     console.log(response)
-                    let loaded_list = JSON.parse(response.data[3]);
+                    let loaded_list = JSON.parse(response.data[0][3]);
                     todolist = new TodoList(loaded_list.uuid, loaded_list.name, loaded_list.sections, loaded_list.tags);
                     console.log(todolist);
                     //render all sections and tasks
@@ -161,7 +161,10 @@ function deleteListItem(e: React.MouseEvent<HTMLDivElement>) {
 }
 
 function createTask(section: HTMLDivElement, name: string, description: string) {
-    document.getElementById("create_panel")!!.remove()
+    let panel = document.getElementById("create_panel")
+    if (panel !== null) {
+        panel.remove();
+    }
     const task = (
         <div className='list_section_item'>
             <div className='list_item_title'>
@@ -217,7 +220,10 @@ function deleteListSection(section: HTMLDivElement, e: React.MouseEvent<HTMLDivE
 
 
 function createListSection(name: string) {
-    document.getElementById("create_panel")!!.remove()
+    let panel = document.getElementById("create_panel")
+    if (panel !== null) {
+        panel.remove();
+    }
     const section_container = document.getElementById('list_container') as HTMLDivElement;
     const list_section = (
         <div className='list_section' id='list_section'>
