@@ -80,7 +80,7 @@ function List() {
     }
 
     async function saveList() {
-        let user: Array<string> = Array.from(localStorage.getItem('user'))
+        let user: string | null = localStorage.getItem('user')
         if (user === null) {
             //show error saying you need to log in and ensure list is saved so it's not lost
             console.log('You must be logged in to save!')
@@ -91,7 +91,7 @@ function List() {
             const cookies = new Cookies()
             const response = await axios.post('/api/lists/save/', {
                 ListUUID: todolist.uuid,
-                UserUUID: user[0],
+                UserUUID: Array.from(user)[0],
                 Name: todolist.name,
                 ListContents: JSON.stringify(todolist)
             }, {withCredentials: true, headers: {"X-CSRFToken": cookies.get("csrftoken")}})
