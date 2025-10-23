@@ -3,12 +3,14 @@ import {useEffect, useState} from "react";
 import Cookies from "universal-cookie";
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
+import {useNavigate} from "react-router-dom";
 
 function CreateAccount() {
 
     const [username, setUsername] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const nav = useNavigate()
 
     useEffect(() => {
         //Check if login data is still stored to log back in
@@ -41,6 +43,7 @@ function CreateAccount() {
                     if(response.data.message === "login successful") {
                         const user: Array<string> = response.data.user
                         localStorage.setItem("user", JSON.stringify(user));
+                        nav('/')
                     } else {
                         error_header.innerText = "Login unsuccessful. The username or password was incorrect."
                         error_header.style.display = "block"
