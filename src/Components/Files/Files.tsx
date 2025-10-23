@@ -47,18 +47,6 @@ function Files() {
                 <div className="l_arrow">&lt;</div>
                 <div className="r_arrow">&gt;</div>
                 <div className="files_lists_container" id="files_lists_container">
-                    <div className="files_list">
-                        <h2>Name</h2>
-                    </div>
-                    <div className="files_list"></div>
-                    <div className="files_list"></div>
-                    <div className="files_list"></div>
-                    <div className="files_list"></div>
-                    <div className="files_list"></div>
-                    <div className="files_list"></div>
-                    <div className="files_list"></div>
-                    <div className="files_list"></div>
-                    <div className="files_list"></div>
                 </div>
 
             </div>
