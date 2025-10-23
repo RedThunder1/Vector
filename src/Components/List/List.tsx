@@ -65,16 +65,27 @@ function List() {
     }
 
     async function loadList() {
-        console.log('attempting to load list');
         try {
             const cookies = new Cookies()
             const response = await axios.post('/api/lists/load/', {
                 ListUUID: uuid,
             }, {withCredentials: true, headers: {"X-CSRFToken": cookies.get("csrftoken")}})
                 .then((response) => {
+
                     let loaded_list = JSON.parse(response.data[0][3]);
+
+                    todolist = new TodoList(
+                        loaded_list.uuid,
+                        loaded_list.name,
+                        loaded_list.sections.map((s: any) =>
+                            new Section(s.name, s.tasks.map((t: any) =>
+                                    new Task(t.name, t.description, t.tags.map((tg: any) => new Tag(tg.name, tg.color)))))),
+                        loaded_list.tags.map((tg: any) => new Tag(tg.name, tg.color))
+                    );
+
                     todolist = new TodoList(loaded_list.uuid, loaded_list.name, loaded_list.sections, loaded_list.tags);
                     //render all sections and tasks
+                    console.log(todolist)
                     todolist.sections.forEach((section, sec_index) => {
                         createListSection(section.name);
                         const section_div = document.getElementById("list_container")!!.children[sec_index] as HTMLDivElement;
