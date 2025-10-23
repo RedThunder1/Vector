@@ -88,6 +88,20 @@
     transform: scale(1.05);
 }
 
+.save_list_button {
+    width: 200px;
+    height: 40px;
+    background-color: #1f2533;
+    margin: 10px auto 0 auto;
+    line-height: 40px;
+    border-radius: 10px;
+    transition: all ease 0.3s;
+}
+
+.save_list_button:hover {
+    transform: scale(1.05);
+}
+
 .list_container {
     position: relative;
     width: 100%;
@@ -103,6 +117,7 @@
 
 .list_section {
     min-width: 400px;
+    max-width: 400px;
     max-height: 800px;
     background-color: rgba(10, 13, 19, 0.5);
     border-radius: 10px;
@@ -122,7 +137,7 @@
 
 .list_section_header > h3 {
     width: auto;
-    margin: 0;
+    margin: 0 0 0 5px;
 }
 
 .new_task_button {
@@ -136,6 +151,17 @@
     transform: scale(1.05);
 }
 
+.remove_section_button {
+    height: 50px;
+    width: auto;
+    margin: 0 10px 0 10px;
+    transition: all ease 0.3s;
+}
+
+.remove_section_button:hover {
+    transform: scale(1.05);
+}
+
 
 .list_section_items {
     display: flex;
@@ -146,7 +172,8 @@
 }
 .list_section_item {
     position: relative;
-    min-height: 200px;
+    min-height: 40px;
+    padding-bottom: 10px;
     width: 100%;
     margin-top: 15px;
     background-color: #06080c;
@@ -158,12 +185,31 @@
 }
 
 .list_item_title {
-    height: 50px;
+    height: fit-content;
+    font-size: 25px;
     padding: 3px;
+    display: flex;
 }
+
+.remove_list_item {
+    margin-left: auto;
+    font-size: 20px;
+    background-color: #10141c;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    line-height: 27px;
+    border-radius: 5px;
+    transition: all ease 0.3s;
+}
+.remove_list_item:hover {
+    transform: scale(1.05);
+}
+
 .list_item_desc {
-    height: 100px;
+    height: fit-content;
     padding: 3px;
+    overflow-wrap: break-word;
 }
 .list_item_tags {
     position: absolute;
@@ -183,4 +229,25 @@
     border-radius: 10px;
     padding: 5px 10px 10px 5px;
     line-height: 6px;
+}
+
+.warning_panel {
+    background-color: #1d2432;
+    margin: 10px;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+.delete_panel_button {
+    height: 50px;
+    background-color: #10141c;
+    margin: 10px auto 10px auto;
+    line-height: 50px;
+    border-radius: 10px;
+    width: 100px;
+    transition: all ease 0.3s;
+}
+.delete_panel_button:hover {
+    transform: scale(1.05);
 }

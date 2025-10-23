@@ -1,9 +1,131 @@
-import React from "react"
+import React, {useEffect} from "react"
 import './List.css'
 import {createPortal} from "react-dom";
 import {render} from "@testing-library/react";
+import axios from "axios";
+import {useLocation} from "react-router-dom";
+import Cookies from "universal-cookie";
+
+class Tag {
+    name: string;
+    color: string;
+
+    constructor(name: string, color: string) {
+        this.name = name;
+        this.color = color;
+    }
+}
+
+class Task {
+    name: string;
+    description: string;
+    tags: Array<Tag>;
+
+    constructor(name: string, description: string, tags: Array<Tag>) {
+        this.name = name;
+        this.description = description;
+        this.tags = tags;
+    }
+}
+
+class Section {
+    name: string;
+    tasks: Task[];
+
+    constructor(name: string, tasks: Task[]) {
+        this.name = name;
+        this.tasks = tasks;
+    }
+}
+
+class TodoList {
+    uuid: string
+    name: string;
+    sections: Array<Section>;
+    tags: Array<Tag>;
+
+    constructor(uuid: string, name: string, sections: Array<Section>, tags: Array<Tag>) {
+        this.uuid = uuid;
+        this.name = name;
+        this.sections = sections;
+        this.tags = tags;
+    }
+}
+
+let todolist: TodoList;
+
+let uuid: string;
 
 function List() {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+        localStorage.setItem(uuid.toString(), JSON.stringify(todolist));
+        e.preventDefault();
+        e.returnValue = '';
+    }
+
+    async function loadList() {
+        try {
+            const cookies = new Cookies()
+            const response = await axios.post('/api/list/load', {
+                ListUUID: uuid,
+
+            }, {withCredentials: true, headers: {"X-CSRFToken": cookies.get("csrftoken")}})
+                .then((response) => {
+                    //Show error if failed to save.
+                })
+        } catch (error) {
+
+        }
+    }
+
+    async function saveList() {
+        /*
+        let user = localStorage.getItem('user')
+        if (user === null) {
+            //show error saying you need to log in and ensure list is saved so it's not lost
+            console.log('You must be logged in to save!')
+            return;
+        }
+         */
+
+
+
+        try {
+            const cookies = new Cookies()
+            const response = await axios.post('/api/list/save', {
+                ListUUID: uuid,
+                UserUUID: uuid,
+                Name: todolist.name,
+                ListContents: JSON.stringify(todolist)
+            }, {withCredentials: true, headers: {"X-CSRFToken": cookies.get("csrftoken")}})
+                .then((response) => {
+                    //Show error if failed to save.
+                })
+        } catch (error) {
+
+        }
+
+
+    }
+    const location = useLocation();
+    const state = location.state?.list || null;
+    useEffect(() => {
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        //See if loading or creating new list
+        //Loading list
+        if (state === 'new') {
+            //creating new list
+            todolist = new TodoList(crypto.randomUUID(), "Test Name", [], [])
+        } else {
+            //fetch list from backend
+            uuid = state
+
+        }
+
+
+
+    }, [])
 
     return (
         <div className="list" id="list">
@@ -11,37 +133,20 @@ function List() {
                 <h2>ToolBar</h2>
                 <input id='list_title' type='text' placeholder='List Title'/>
                 <div className="new_section_button" onClick={() => {openSectionCreationPanel()}}>New Section</div>
+                <div className="save_list_button" onClick={saveList}>Save Todo List</div>
             </div>
-
-            {//Placeholder for Dev
-            }
-            <div className='list_container' id='list_container'>
-                <div className='list_section'>
-                    <div className='list_section_header'><h3>Section Header</h3> <div className="new_task_button" onClick={(e) => {openTaskCreationPanel(e)}}>New</div> </div>
-                    <div className='list_section_items'>
-                        <div className='list_section_item'>
-                            <div className='list_item_title'>
-                                TITLE
-                                <div className='remove_list_item'>X</div>
-                            </div>
-                            <div className='list_item_desc'>This is an interesting description</div>
-                            <div className='list_item_tags'>
-                                <div className='list_item_tag'>IMPORTANT</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div className='list_container' id='list_container'></div>
         </div>
     )
 }
 
-function saveList() {
-
-}
-
-function loadList() {
-
+function deleteListItem(e: React.MouseEvent<HTMLDivElement>) {
+    const task = ((e.target as HTMLDivElement).parentElement as HTMLElement).parentElement as HTMLElement;
+    const parent = task.parentElement!!;
+    const task_index = Array.from(parent.children).indexOf(task);
+    const parent_index = Array.from(parent.parentElement!!.children).indexOf(parent);
+    todolist.sections[parent_index].tasks.splice(task_index, 1);
+    task.remove();
 }
 
 function createTask(section: HTMLDivElement, name: string, description: string) {
@@ -50,7 +155,7 @@ function createTask(section: HTMLDivElement, name: string, description: string) 
         <div className='list_section_item'>
             <div className='list_item_title'>
                 {name}
-                <div className='remove_list_item'>X</div>
+                <div className='remove_list_item' onClick={(e)=> {deleteListItem(e)}}>X</div>
             </div>
             <div className='list_item_desc'>{description}</div>
             <div className='list_item_tags'>
@@ -59,6 +164,8 @@ function createTask(section: HTMLDivElement, name: string, description: string) 
     );
 
     render(createPortal(task, section));
+    const index = Array.from(section.parentElement!!.children).indexOf(section);
+    todolist.sections[index].tasks.push(new Task(name, description, []));
 }
 
 function openTaskCreationPanel(e: React.MouseEvent<HTMLDivElement>) {
@@ -75,26 +182,44 @@ function openTaskCreationPanel(e: React.MouseEvent<HTMLDivElement>) {
                           </div>
     );
     render(createPortal(create_panel, list_element));
-
 }
 
-
-
-function deleteListItem() {
-
+function openDeleteListSection(e: React.MouseEvent<HTMLDivElement>) {
+    const list_element = document.getElementById('list') as HTMLDivElement;
+    const section = ((e.target as HTMLDivElement).parentElement as HTMLDivElement).parentElement as HTMLDivElement;
+    const warning_panel = (
+        <div className="warning_panel">
+            <h2>Do you want to delete this section?</h2>
+            <div className="delete_panel_button" onClick={(e) => {deleteListSection(section, e)}}>Delete</div>
+            <div className="delete_panel_button" onClick={(e) => {(e.target as HTMLDivElement).parentElement!!.remove()}}>Cancel</div>
+        </div>
+    )
+    render(createPortal(warning_panel, list_element));
 }
+
+function deleteListSection(section: HTMLDivElement, e: React.MouseEvent<HTMLDivElement>) {
+    const index = Array.from(section.parentElement!!.children).indexOf(section);
+    todolist.sections.splice(index, 1);
+    section.remove();
+    (e.target as HTMLDivElement).parentElement!!.remove();
+}
+
 
 function createListSection(name: string) {
     document.getElementById("create_panel")!!.remove()
     const section_container = document.getElementById('list_container') as HTMLDivElement;
     const list_section = (
         <div className='list_section' id='list_section'>
-            <div className='list_section_header'><h3>{name}</h3> <div className="new_task_button" onClick={(e) => {openTaskCreationPanel(e)}}>New</div> </div>
+            <div className='list_section_header'><h3>{name}</h3>
+                <div className="new_task_button" onClick={(e) => {openTaskCreationPanel(e)}}>+</div>
+                <div className="remove_section_button" onClick={(e) => {openDeleteListSection(e)}}>-</div>
+            </div>
             <div className='list_section_items'>
             </div>
         </div>
     );
     render(createPortal(list_section, section_container));
+    todolist.sections.push(new Section(name, []))
 }
 
 function openSectionCreationPanel() {
@@ -109,10 +234,5 @@ function openSectionCreationPanel() {
     );
     render(createPortal(create_panel, list_element));
 }
-
-function deleteListSection() {
-
-}
-
 
 export default List

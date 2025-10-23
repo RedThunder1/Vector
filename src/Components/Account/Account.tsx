@@ -1,4 +1,4 @@
-import react, {useState} from "react";
+import react, {useEffect, useState} from "react";
 import "./Account.css"
 import axios from "axios";
 import Cookies from "universal-cookie";
@@ -7,7 +7,14 @@ function Account() {
     const [identifier, setIdentifier] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
+    useEffect(() => {
+        //Check if login data is still stored to log back in
+    })
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        let error_header = document.getElementById("error_header") as HTMLDivElement
+        error_header.style.display = "none";
+
         e.preventDefault()
         try {
             const cookies = new Cookies()
@@ -19,10 +26,9 @@ function Account() {
                 .then((response) => {
                     console.log(response.data.message)
                     if(response.data.message === "login successful") {
-                        //Look for posted user data
-                        console.log("Successfully logged in")
+                        const user: Array<string> = response.data.users
+                        localStorage.setItem("user", JSON.stringify(user));
                     } else {
-                        let error_header = document.getElementById("error_header") as HTMLDivElement
                         error_header.innerText = "Login unsuccessful. The username or password was incorrect."
                         error_header.style.display = "block"
                     }
@@ -30,7 +36,6 @@ function Account() {
 
         } catch (error) {
             //Show error on screen
-            let error_header = document.getElementById("error_header") as HTMLDivElement
             error_header.innerText = "There was an error trying to log in. Try again."
             error_header.style.display = "block"
         }
