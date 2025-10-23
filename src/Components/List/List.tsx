@@ -90,7 +90,7 @@ function List() {
         try {
             const cookies = new Cookies()
             const response = await axios.post('/api/lists/save/', {
-                ListUUID: uuid,
+                ListUUID: todolist.uuid,
                 UserUUID: user[0],
                 Name: todolist.name,
                 ListContents: JSON.stringify(todolist)
