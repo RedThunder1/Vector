@@ -72,18 +72,14 @@ function List() {
                 ListUUID: uuid,
             }, {withCredentials: true, headers: {"X-CSRFToken": cookies.get("csrftoken")}})
                 .then((response) => {
-                    console.log(response)
                     let loaded_list = JSON.parse(response.data[0][3]);
                     todolist = new TodoList(loaded_list.uuid, loaded_list.name, loaded_list.sections, loaded_list.tags);
-                    console.log(todolist);
                     //render all sections and tasks
                     todolist.sections.forEach((section, sec_index) => {
                         createListSection(section.name);
-                        console.log('creating section', section.name);
                         const section_div = document.getElementById("list_container")!!.children[sec_index] as HTMLDivElement;
                         section.tasks.forEach((task, task_index) => {
                             createTask(section_div, task.name, task.description)
-                            console.log('creating task', section_div);
                         })
                     })
                 })
@@ -158,6 +154,7 @@ function deleteListItem(e: React.MouseEvent<HTMLDivElement>) {
     const parent_index = Array.from(parent.parentElement!!.children).indexOf(parent);
     todolist.sections[parent_index].tasks.splice(task_index, 1);
     task.remove();
+    console.log(todolist.sections);
 }
 
 function createTask(section: HTMLDivElement, name: string, description: string) {
@@ -165,6 +162,9 @@ function createTask(section: HTMLDivElement, name: string, description: string) 
     if (panel !== null) {
         panel.remove();
     }
+
+    console.log(todolist.sections);
+
     const task = (
         <div className='list_section_item'>
             <div className='list_item_title'>
@@ -185,6 +185,7 @@ function createTask(section: HTMLDivElement, name: string, description: string) 
 function openTaskCreationPanel(e: React.MouseEvent<HTMLDivElement>) {
     const section = ((e.target as HTMLDivElement).parentElement as HTMLDivElement).parentElement as HTMLDivElement;
     const list_element = document.getElementById('list') as HTMLDivElement;
+
 
     const create_panel = (<div className="create_panel" id="create_panel">
                             <h2>Create New Task</h2>
@@ -216,6 +217,8 @@ function deleteListSection(section: HTMLDivElement, e: React.MouseEvent<HTMLDivE
     todolist.sections.splice(index, 1);
     section.remove();
     (e.target as HTMLDivElement).parentElement!!.remove();
+
+    console.log(todolist.sections);
 }
 
 
@@ -224,6 +227,9 @@ function createListSection(name: string) {
     if (panel !== null) {
         panel.remove();
     }
+
+    console.log(todolist.sections);
+
     const section_container = document.getElementById('list_container') as HTMLDivElement;
     const list_section = (
         <div className='list_section' id='list_section'>
