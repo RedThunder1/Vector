@@ -31,9 +31,9 @@ class Task {
 
 class Section {
     name: string;
-    tasks: Task[];
+    tasks: Array<Task>;
 
-    constructor(name: string, tasks: Task[]) {
+    constructor(name: string, tasks: Array<Task>) {
         this.name = name;
         this.tasks = tasks;
     }
@@ -69,10 +69,18 @@ function List() {
             const cookies = new Cookies()
             const response = await axios.post('/api/lists/load/', {
                 ListUUID: uuid,
-
             }, {withCredentials: true, headers: {"X-CSRFToken": cookies.get("csrftoken")}})
                 .then((response) => {
-                    //Show error if failed to save.
+                    let loaded_list = JSON.parse(response.data[3]);
+                    todolist = new TodoList(loaded_list.uuid, loaded_list.name, loaded_list.sections, loaded_list.tags);
+                    //render all sections and tasks
+                    todolist.sections.forEach((section, sec_index) => {
+                        createListSection(section.name);
+                        const section_div = document.getElementById("list_container")!!.children[sec_index] as HTMLDivElement;
+                        section.tasks.forEach((task, task_index) => {
+                            createTask(section_div, task.name, task.description)
+                        })
+                    })
                 })
         } catch (error) {
 
@@ -113,10 +121,11 @@ function List() {
         //Loading list
         if (state === 'new') {
             //creating new list
-            todolist = new TodoList(uuidv4(), "Test Name", [], [])
+            todolist = new TodoList(uuidv4(), "List", [], [])
         } else {
             //fetch list from backend
             uuid = state
+            loadList()
 
         }
 
