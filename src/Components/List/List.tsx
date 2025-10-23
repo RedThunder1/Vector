@@ -71,14 +71,18 @@ function List() {
                 ListUUID: uuid,
             }, {withCredentials: true, headers: {"X-CSRFToken": cookies.get("csrftoken")}})
                 .then((response) => {
+                    console.log(response)
                     let loaded_list = JSON.parse(response.data[3]);
                     todolist = new TodoList(loaded_list.uuid, loaded_list.name, loaded_list.sections, loaded_list.tags);
+                    console.log(todolist);
                     //render all sections and tasks
                     todolist.sections.forEach((section, sec_index) => {
                         createListSection(section.name);
+                        console.log('creating section', section.name);
                         const section_div = document.getElementById("list_container")!!.children[sec_index] as HTMLDivElement;
                         section.tasks.forEach((task, task_index) => {
                             createTask(section_div, task.name, task.description)
+                            console.log('creating task', section_div);
                         })
                     })
                 })
