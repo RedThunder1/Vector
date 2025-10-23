@@ -5,6 +5,7 @@ import {render} from "@testing-library/react";
 import axios from "axios";
 import {useLocation} from "react-router-dom";
 import Cookies from "universal-cookie";
+import { v4 as uuidv4 } from 'uuid';
 
 class Tag {
     name: string;
@@ -116,7 +117,7 @@ function List() {
         //Loading list
         if (state === 'new') {
             //creating new list
-            todolist = new TodoList(crypto.randomUUID(), "Test Name", [], [])
+            todolist = new TodoList(uuidv4(), "Test Name", [], [])
         } else {
             //fetch list from backend
             uuid = state
