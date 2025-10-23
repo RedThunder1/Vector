@@ -1,4 +1,4 @@
-import React, {useEffect} from "react"
+import React, {ChangeEvent, useEffect} from "react"
 import './List.css'
 import {createPortal} from "react-dom";
 import {render} from "@testing-library/react";
@@ -64,6 +64,10 @@ function List() {
         e.returnValue = '';
     }
 
+    const handleTitleChange = (e: ChangeEvent) => {
+        todolist.name = (e.target as HTMLInputElement).value;
+    }
+
     async function loadList() {
         try {
             const cookies = new Cookies()
@@ -87,6 +91,7 @@ function List() {
 
                     todolist = new TodoList(loaded_list.uuid, loaded_list.name, loaded_list.sections, loaded_list.tags);
                     //render all sections and tasks
+                    (document.getElementById("list_title") as HTMLInputElement).value = todolist.name;
                     todolist.sections.forEach((section, sec_index) => {
                         createListSection(section.name);
                         const section_div = document.getElementById("list_container")!!.children[sec_index] as HTMLDivElement;
@@ -150,7 +155,7 @@ function List() {
         <div className="list" id="list">
             <div className='list_toolbar'>
                 <h2>ToolBar</h2>
-                <input id='list_title' type='text' placeholder='List Title'/>
+                <input id='list_title' type='text' placeholder='List Title' onChange={handleTitleChange} />
                 <div className="new_section_button" onClick={() => {openSectionCreationPanel()}}>New Section</div>
                 <div className="save_list_button" onClick={saveList}>Save Todo List</div>
             </div>
@@ -165,7 +170,7 @@ function deleteListItem(e: React.MouseEvent<HTMLDivElement>) {
     const task_index = Array.from(parent.children).indexOf(task);
     const parent_index = Array.from(parent.parentElement!!.children).indexOf(parent);
     console.log(todolist.sections[parent_index].tasks, parent_index, task_index);
-    todolist.sections[parent_index].tasks.splice(task_index, 1);
+    todolist.sections[parent_index].tasks.splice(task_index - 2, 1);
     console.log(todolist.sections[parent_index].tasks);
     task.remove();
 }
