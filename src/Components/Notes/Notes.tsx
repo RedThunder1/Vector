@@ -57,7 +57,7 @@ function Notes() {
                 NoteUUID: uuid,
                 UserUUID: localStorage.getItem('user')!!.substring(2,37),
                 Name: name,
-                NoteSettings: "",
+                NoteSettings: "temp",
                 NoteContents: (document.getElementById("notepad") as HTMLTextAreaElement).value,
 
             }, {withCredentials: true, headers: {"X-CSRFToken": cookies.get("csrftoken")}})
@@ -75,6 +75,7 @@ function Notes() {
             if (state === 'new') {
                 //creating new note
                 uuid = uuidv4();
+                name = "Note"
             } else {
                 //fetch list from backend
                 uuid = state
