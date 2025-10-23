@@ -71,7 +71,6 @@ function List() {
                 ListUUID: uuid,
             }, {withCredentials: true, headers: {"X-CSRFToken": cookies.get("csrftoken")}})
                 .then((response) => {
-                    console.log(response)
                     let loaded_list = JSON.parse(response.data[0][3]);
                     todolist = new TodoList(
                         loaded_list.uuid,
@@ -86,10 +85,8 @@ function List() {
                         [...loaded_list.tags.map((tg: any) => new Tag(tg.name, tg.color))]
                     );
 
-                    console.log(loaded_list);
                     todolist = new TodoList(loaded_list.uuid, loaded_list.name, loaded_list.sections, loaded_list.tags);
                     //render all sections and tasks
-                    console.log(todolist)
                     todolist.sections.forEach((section, sec_index) => {
                         createListSection(section.name);
                         const section_div = document.getElementById("list_container")!!.children[sec_index] as HTMLDivElement;
@@ -173,13 +170,6 @@ function deleteListItem(e: React.MouseEvent<HTMLDivElement>) {
 }
 
 function createTask(section: HTMLDivElement, name: string, description: string) {
-    let panel = document.getElementById("create_panel")
-    if (panel !== null) {
-        panel.remove();
-    }
-
-    console.log(todolist.sections);
-
     const task = (
         <div className='list_section_item'>
             <div className='list_item_title'>
@@ -194,7 +184,11 @@ function createTask(section: HTMLDivElement, name: string, description: string) 
 
     render(createPortal(task, section));
     const index = Array.from(section.parentElement!!.children).indexOf(section);
-    todolist.sections[index].tasks.push(new Task(name, description, []));
+    let panel = document.getElementById("create_panel")
+    if (panel !== null) {
+        panel.remove();
+        todolist.sections[index].tasks.push(new Task(name, description, []));
+    }
 }
 
 function openTaskCreationPanel(e: React.MouseEvent<HTMLDivElement>) {
@@ -238,13 +232,6 @@ function deleteListSection(section: HTMLDivElement, e: React.MouseEvent<HTMLDivE
 
 
 function createListSection(name: string) {
-    let panel = document.getElementById("create_panel")
-    if (panel !== null) {
-        panel.remove();
-    }
-
-    console.log(todolist.sections);
-
     const section_container = document.getElementById('list_container') as HTMLDivElement;
     const list_section = (
         <div className='list_section' id='list_section'>
@@ -257,7 +244,11 @@ function createListSection(name: string) {
         </div>
     );
     render(createPortal(list_section, section_container));
-    todolist.sections.push(new Section(name, []))
+    let panel = document.getElementById("create_panel")
+    if (panel !== null) {
+        todolist.sections.push(new Section(name, []))
+        panel.remove()
+    }
 }
 
 function openSectionCreationPanel() {
