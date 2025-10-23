@@ -71,9 +71,8 @@ function List() {
                 ListUUID: uuid,
             }, {withCredentials: true, headers: {"X-CSRFToken": cookies.get("csrftoken")}})
                 .then((response) => {
-
+                    console.log(response)
                     let loaded_list = JSON.parse(response.data[0][3]);
-
                     todolist = new TodoList(
                         loaded_list.uuid,
                         loaded_list.name,
@@ -82,7 +81,7 @@ function List() {
                                     new Task(t.name, t.description, t.tags.map((tg: any) => new Tag(tg.name, tg.color)))))),
                         loaded_list.tags.map((tg: any) => new Tag(tg.name, tg.color))
                     );
-
+                    console.log(loaded_list);
                     todolist = new TodoList(loaded_list.uuid, loaded_list.name, loaded_list.sections, loaded_list.tags);
                     //render all sections and tasks
                     console.log(todolist)
