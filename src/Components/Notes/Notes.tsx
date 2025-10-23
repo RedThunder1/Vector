@@ -34,10 +34,12 @@ function Notes() {
                 NoteUUID: uuid,
             }, {withCredentials: true, headers: {"X-CSRFToken": cookies.get("csrftoken")}})
                 .then((response) => {
-                    let data = response.data[0]
+                    let data: any = response.data[0]
                     uuid = data[0]
                     name = data[2]
-                    (document.getElementById('notepad') as HTMLTextAreaElement).value = data[4]
+                    console.log(response);
+                    const notepad = (document.getElementById('notepad') as HTMLTextAreaElement).value = data[4]
+                    const note_title = (document.getElementById('note_title') as HTMLInputElement).value = name
 
                 })
         } catch (error) {
