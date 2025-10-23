@@ -2,14 +2,14 @@ import react, {useEffect} from 'react';
 import './Files.css'
 import axios from "axios";
 import Cookies from "universal-cookie";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {createPortal} from "react-dom";
 import {render} from "@testing-library/react";
 
 function Files() {
 
     let user: string | null = localStorage.getItem('user')
-
+    let nav = useNavigate();
     async function loadAllLists() {
         if (user === null) return
         const cookies = new Cookies()
@@ -22,11 +22,9 @@ function Files() {
                 const container: HTMLDivElement = document.getElementById("files_lists_container")!! as HTMLDivElement
                 for (let item of data) {
                     const html = (
-                        <Link to={'/list'} state={{list: item[0]}}>
-                            <div className="files_list">
-                                <h2>{item[2]}</h2>
-                            </div>
-                        </Link>
+                        <div className="files_list" onClick={() => { nav('files/', {state: item[0]}) }}>
+                            <h2>{item[2]}</h2>
+                        </div>
                     );
                     render(createPortal(html, container));
                 }
