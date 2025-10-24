@@ -59,7 +59,12 @@ let uuid: string;
 
 function List() {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-        localStorage.setItem(uuid, JSON.stringify(todolist));
+        //Create method to log in and be redirected back
+
+        if (todolist.sections.length > 0) {
+            saveList()
+        }
+
         e.preventDefault();
         e.returnValue = '';
     }

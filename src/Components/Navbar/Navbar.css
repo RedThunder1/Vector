@@ -41,6 +41,13 @@
     gap: 10px;
 }
 
+.utility_tabs > p {
+    margin: auto;
+    background-color: #141a25;
+    padding: 6px;
+    border-radius: 10px;
+}
+
 .account_tab {
     background-color: #141a25;
     border-radius: 50%;
