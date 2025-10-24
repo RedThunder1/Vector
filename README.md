@@ -13,21 +13,19 @@ Vector is currently in a state where it's core functionality works but has littl
 <h2>Features</h2>
 My planned features aren't set in stone yet and are subject to change but as of now these are what I plan to do.
 <h3>Todo List</h3>
-- COMPLETED
+COMPLETED
 - Creation of tasks and sections to organize tasks.
 - Notes
 - Descriptions to be put on tasks
 
-
-- IN PROGRESS
+IN PROGRESS
 - Tags to be applied to Tasks and sections.
 - Notes compatability, comments, and descriptions can be put on tasks and sections.
 
 <h3>Notes</h3>
-- COMPLETED
+COMPLETED
 - Create and save Notes.
 
-
-- IN PROGRESS
+IN PROGRESS
 - Notes can be standalone or be a part of todo lists.
 - (Possible) Multiple supported file types such as markdown rather than just txt.
