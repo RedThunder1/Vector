@@ -1,4 +1,4 @@
-import react, {useEffect} from 'react'
+import {useEffect} from 'react'
 import "./Navbar.css"
 // @ts-ignore idk why it errors
 import Logo from "../../Graphics/VectorLogo.png"
@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 function Navbar() {
     let name = ""
     useEffect(() => {
-        const user = sessionStorage.getItem("user");
+        const user = localStorage.getItem("user");
         if (user !== null) {
             name = user[1]
         }

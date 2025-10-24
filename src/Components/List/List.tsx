@@ -152,13 +152,15 @@ function List() {
         }
     }, [])
 
+    //<div className="toolbar_button" onClick={() => {openTagsPanel()}}>Manage Tags</div>
     return (
         <div className="list" id="list">
             <div className='list_toolbar'>
                 <h2>ToolBar</h2>
                 <input id='list_title' type='text' placeholder='List Title' onChange={handleTitleChange} />
-                <div className="new_section_button" onClick={() => {openSectionCreationPanel()}}>New Section</div>
-                <div className="save_list_button" onClick={saveList}>Save Todo List</div>
+                <div className="toolbar_button" onClick={() => {openSectionCreationPanel()}}>New Section</div>
+
+                <div className="toolbar_button" onClick={saveList}>Save Todo List</div>
             </div>
             <div className='list_container' id='list_container'></div>
         </div>
@@ -270,5 +272,42 @@ function openSectionCreationPanel() {
     );
     render(createPortal(create_panel, list_element));
 }
+/*
+function createTag() {
+    const name_input = (document.getElementById('tag_name_input') as HTMLInputElement).value;
+    const color_input = (document.getElementById('tag_color') as HTMLInputElement).value;
+
+    if (name_input === undefined) return
+    todolist.tags.push(new Tag(name_input, color_input));
+}
+
+function openTagsPanel() {
+    const list_element = document.getElementById('list') as HTMLDivElement;
+    const create_panel = (<div className="tags_panel" id="tags_panel">
+        <h2>Manage Tags</h2>
+        <div className="tags_list" id="tags_list">
+        </div>
+        <div className="tags_settings disabled">
+            <label><input className="tag_color disabled" type="color"/> Color </label>
+            <div className="tag_delete_button disabled">Delete</div>
+
+            <input className="tag_name_input" id="tag_name_input" type="text" placeholder="tag name"/>
+            <div className="tag_create_button" onClick={() => {createTag()}}></div>
+        </div>
+    </div>)
+
+    render(createPortal(create_panel, list_element));
+    const tag_element = document.getElementById('tags_list') as HTMLDivElement;
+
+    todolist.tags.forEach((tag, index) => {
+        const tag_element = (
+            <div className='list_item_tag' style={{backgroundColor: tag.color}}>IMPORTANT</div>);
+        render(createPortal(tag_element, list_element));
+    })
+
+
+}
+ */
+
 
 export default List

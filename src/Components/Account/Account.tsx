@@ -1,4 +1,4 @@
-import react, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import "./Account.css"
 import axios from "axios";
 import Cookies from "universal-cookie";

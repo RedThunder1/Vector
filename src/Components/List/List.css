@@ -74,17 +74,17 @@
     height: auto;
 }
 
-.new_section_button {
+.toolbar_button {
     width: 200px;
     height: 40px;
     background-color: #1f2533;
-    margin: auto;
+    margin: 10px auto 0 auto;
     line-height: 40px;
     border-radius: 10px;
     transition: all ease 0.3s;
 }
 
-.new_section_button:hover {
+.toolbar_button:hover {
     transform: scale(1.05);
 }
 
@@ -252,4 +252,95 @@
 }
 .delete_panel_button:hover {
     transform: scale(1.05);
+}
+
+.tags_panel {
+    width: 800px;
+    height: 600px;
+    background-color: #1d2432;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+}
+
+.tags_panel > h2 {
+    text-align: center;
+}
+
+.tags_list {
+    width: 300px;
+    height: 450px;
+    position: absolute;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: scroll;
+    align-items: center;
+}
+
+.tags_settings {
+    width: 300px;
+    height: 450px;
+    position: absolute;
+    right: 0;
+    margin: 10px;
+}
+
+.tags_list_item {
+    background-color: #0a0d13;
+    height: 30px;
+    width: 250px;
+    line-height: 30px;
+    border-radius: 5px;
+    text-align: center;
+    transition: all ease 0.3s;
+}
+
+.tags_list_item:hover {
+    transform: scale(1.05);
+}
+
+.tag_color_label {
+
+}
+
+.tag_color {
+    outline: none;
+    border: none;
+    height: 40px;
+    background-color: transparent;
+}
+
+.tag_delete_button {
+    height: 40px;
+    width: 150px;
+    background-color: #0a0d13;
+    margin: 10px;
+}
+
+.tag_name_input {
+    background-color: #0a0d13;
+    outline: none;
+    border: none;
+    position: absolute;
+    bottom: 70px;
+    height: 30px;
+    width: 150px;
+    margin: 10px;
+}
+
+.tag_create_button {
+    height: 40px;
+    width: 150px;
+    background-color: #0a0d13;
+    margin: 10px;
+    position: absolute;
+    bottom: 0;
+}
+
+.disabled {
+    opacity: 0.6;
 }

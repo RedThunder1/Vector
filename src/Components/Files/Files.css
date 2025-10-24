@@ -3,6 +3,7 @@
     width: 100vw;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 .files_todo_lists {

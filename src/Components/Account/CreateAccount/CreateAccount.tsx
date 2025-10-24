@@ -1,5 +1,5 @@
 import './CreateAccount.css'
-import {useEffect, useState} from "react";
+import {FormEvent, useEffect, useState} from "react";
 import Cookies from "universal-cookie";
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
@@ -25,7 +25,7 @@ function CreateAccount() {
     };
 
 
-    const handleCreateAccount = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleCreateAccount = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const error_header = document.getElementById("error_header") as HTMLDivElement
         const password_error = document.getElementById("password_error") as HTMLParagraphElement
