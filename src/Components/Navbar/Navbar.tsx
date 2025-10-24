@@ -21,7 +21,6 @@ function Navbar() {
             <div className="utility_tabs">
                 <p>{name}</p>
                 <Link className="Link" to="/account"><div className="account_tab">Account</div></Link>
-                <div className="settings_tab">Settings</div>
             </div>
 
         </div>
