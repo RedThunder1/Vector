@@ -8,16 +8,26 @@ Vector will also allow the user to take notes which can also be attached to todo
 
 <h2>Status</h2>
 
-Vector is a project which I just started on and is very early in development. Little has been done so far and much of the project needs to be planed.
+Vector is currently in a state where it's core functionality works but has little polish. A lot of my work from now on will be improving the user experience and optimizing my janky code to work better.
 
 <h2>Features</h2>
 My planned features aren't set in stone yet and are subject to change but as of now these are what I plan to do.
 <h3>Todo List</h3>
+- COMPLETED
 - Creation of tasks and sections to organize tasks.
+- Notes
+- Descriptions to be put on tasks
+
+
+- IN PROGRESS
 - Tags to be applied to Tasks and sections.
-- Notes, comments, and descriptions can be put on tasks and sections.
+- Notes compatability, comments, and descriptions can be put on tasks and sections.
 
 <h3>Notes</h3>
+- COMPLETED
 - Create and save Notes.
+
+
+- IN PROGRESS
 - Notes can be standalone or be a part of todo lists.
 - (Possible) Multiple supported file types such as markdown rather than just txt.
